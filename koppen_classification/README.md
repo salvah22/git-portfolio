@@ -5,6 +5,7 @@ The aim and goal of this project was to make a worldwide Koppen-Geiger classific
 The scripts combine modules Arcpy (ArcGIS Pro), Numpy and multiprocessing for calculations and reading files. In addition to modules os, tqdm, datetime and shutil for the ease of the workflow. 
 
 means.py script calculates the mean value of an indicated timespan (creating the climate normals for the classification.py script input) using two NC files, ideally from CMIP6, belonging a same experiment and realization, one NC file must contain temperature data in Kelvin and the second NC file contain precipitation data in kgm-2s-1. The user only need to change the parameters path, in_netcdf1, in_netcdf2 (pointing to the NC files), endString (for writing the result), yearSpan, start and finish (integers used for the timespan). From within the means.py script, the writeMetadata.py script is called, for writing in new txt files relevant metadata for each of the NC files.
+
 ![historical temperature data screenshot of MRI-ESM2.0 (2)](img/nc.png)
 
 classification.py read the climate normals created using means.py and classify (based on Beck et al. (2018) parameters [1] and variable thresholds) each of the cells into different climate zones, creating a TIF raster as output. The user only needs to input the variables path, ts_file (temperature txt), pr_file (precipitation txt) and in_netcdf (for geometry information).
@@ -14,6 +15,7 @@ interpol.py is used instead of classification.py if an interpolation is required
 In both classification.py and interpol.py the methods for classifying climate zones (koppen_beck) and coffee growing zones (coffee) were created as functions, that can be changed in the map calls.
 
 The results are not masked as default, using Natural Earth ocean mask vectors was a great way to get the desired results.
+
 ![Koppen classification](img/koppen.png)
 
 References 
